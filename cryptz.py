@@ -374,7 +374,7 @@ def main():
                 )
             choice = input(Fore.CYAN + "CRYPTZ -> " + Style.RESET_ALL)
             try:
-                MENU_OPTIONS[int(choice)]()
+                MENU_OPTIONS[int(choice) - 1]()
             except IndexError:
                 print(Fore.RED + "Unknown option.")
     except KeyboardInterrupt:
