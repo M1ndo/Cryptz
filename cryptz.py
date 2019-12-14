@@ -3,6 +3,17 @@
 # Updated At 02/12/2019
 # Don't Copy The Code Without Giving Me The Credits Nerds !!!
 
+import base64
+import binascii
+import datetime
+import os
+import random
+import re
+import sqlite3
+import string
+import sys
+from time import sleep
+
 #######Colors###########
 Green = "\033[1;33m"
 Blue = "\033[1;34m"
@@ -33,22 +44,11 @@ unknown15 = "\033[38;5;14m"
 
 try:
     import pybase64
-    import sqlite3
-    import re
-    import os
-    import sys
-    import string
-    import random
-    import datetime
-    from time import sleep as sl
     from Crypto.PublicKey import RSA
     from Crypto import Random
     from Crypto.Cipher import PKCS1_OAEP
     from Crypto.Cipher import AES
-    from Crypto.Cipher import AES as AES2
     from cryptography.fernet import Fernet
-    import binascii
-    import base64
 except ImportError:
     print(
         Red
@@ -349,7 +349,7 @@ def rsa_enc():
     secret = ran_generator()
     passphrase = secret
     secret = str.encode(secret)
-    cipher = AES2.new(secret)
+    cipher = AES.new(secret)
     encoded = EncodeAES(cipher, data)
     encoded = bytes.decode(encoded)
     print(unknown15 + "\n" + "encryption key:" + passphrase + "\n")
@@ -423,31 +423,31 @@ def main():
             if result:
                 for i in result:
                     print(unknown + "\n  Access Granted!!!")
-                    sl(3)
+                    sleep(3)
                     print("  Started At {}".format(now))
-                    sl(0.10)
+                    sleep(0.10)
                     print("  Loading Resources...[0%]")
-                    sl(0.10)
+                    sleep(0.10)
                     print("  Loading Resources...[10%]")
-                    sl(0.10)
+                    sleep(0.10)
                     print("  Loading Resources...[20%]")
-                    sl(0.10)
+                    sleep(0.10)
                     print("  Loading Resources...[30%]")
-                    sl(0.10)
+                    sleep(0.10)
                     print("  Loading Resources...[40%]")
-                    sl(0.10)
+                    sleep(0.10)
                     print("  Loading Resources...[50%]")
-                    sl(0.10)
+                    sleep(0.10)
                     print("  Loading Resources...[60%]")
-                    sl(0.10)
+                    sleep(0.10)
                     print("  Loading Resources...[70%]")
-                    sl(0.10)
+                    sleep(0.10)
                     print("  Loading Resources...[80%]")
-                    sl(0.10)
+                    sleep(0.10)
                     print("  Loading Resources...[90%]")
-                    sl(0.10)
+                    sleep(0.10)
                     print("  Loading Resources...[1000000000000%]")
-                    sl(1)
+                    sleep(1)
                     print("  CRYPTZ is starting!!")
                     print(
                         unknown3
@@ -455,7 +455,7 @@ def main():
                     Welcome To CRYPTZ The Unbreakable Tool
                     """
                     )
-                    sl(3)
+                    sleep(3)
                     clear()
                     banner()
 
