@@ -203,10 +203,8 @@ MENU_OPTIONS.append(uu_dec)
 
 def base64_enc():
     """Encode with Base64."""
-    data = input(Fore.MAGENTA + "Enter Your Plain Text Message: ")
-    data = data.encode()
-    enc = pybase64._pybase64.b64encode(data)
-    enc = enc.encode()
+    data = input(Fore.MAGENTA + "Enter Your Plain Text Message: ").encode()
+    enc = pybase64._pybase64.b64encode(data).decode()
     print("\n" + Fore.YELLOW + enc + Style.RESET_ALL + "\n")
 
 
@@ -215,10 +213,8 @@ MENU_OPTIONS.append(base64_enc)
 
 def base64_dec():
     """Decode with Base64."""
-    data = input(Fore.RED + "Enter Your Encrypted Form: ")
-    data = data.encode()
-    dec = pybase64._pybase64.b64decode(data)
-    dec = dec.encode()
+    data = input(Fore.RED + "Enter Your Encrypted Form: ").encode()
+    dec = pybase64._pybase64.b64decode(data).decode()
     print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
 
 
