@@ -12,13 +12,13 @@ import binascii
 import binhex
 import datetime
 import os
-import random
 import string
 from tempfile import NamedTemporaryFile
 
 try:
     from colorama import Fore, Style, init
     from Crypto.Cipher import AES
+    from Crypto.Random import random
     from cryptography.fernet import Fernet
 except ImportError:
     print(
@@ -78,9 +78,9 @@ def show(type, output):
     print(f"{color}{message}:{Style.RESET_ALL}\n{output}")
 
 
-def ran_generator():
-    chars = [c for c in string.printable if c not in string.whitespace]
-    keypass = "".join(random.choice(chars) for x in range(32))
+def random_key(length):
+    chars = string.ascii_letters + string.digits
+    keypass = "".join(random.choice(chars) for x in range(length))
     return keypass
 
 
@@ -134,7 +134,7 @@ MENU_OPTIONS.append(base64_dec)
 
 def binhex_enc():
     """Encode with BinHex4."""
-    temp_filename = f"temp_{ran_generator()}"
+    temp_filename = f"temp_{random_key(32)}"
     with open(temp_filename, "wb") as outfile:
         outfile.write(get("plaintext"))
     dest_filename = get("filename").decode()
@@ -146,7 +146,7 @@ MENU_OPTIONS.append(binhex_enc)
 
 def binhex_dec():
     """Decode with BinHex4."""
-    temp_filename = f"temp_{ran_generator()}"
+    temp_filename = f"temp_{random_key(32)}"
     binhex.hexbin(get("filename").decode(), temp_filename)
     with open(temp_filename, "rb") as infile:
         show("plaintext", infile.read().decode())
@@ -177,13 +177,11 @@ MENU_OPTIONS.append(fernet_dec)
 
 def aes_enc_manual():
     """Encrypt with AES. (Manual)"""
-    keypass = ran_generator()
-    keypass2 = keypass
+    keypass = random_key(4)
     data = get("plaintext")
-    keypass = keypass.encode()
-    cipher = AES.new(keypass, AES.MODE_EAX)
+    cipher = AES.new(keypass.encode(), AES.MODE_EAX)
     ciphertext, tag = cipher.encrypt_and_digest(data)
-    print(Fore.GREEN + "\n" + "Encryption Password: {}".format(keypass2))
+    print(Fore.GREEN + "\n" + "Encryption Password: {}".format(keypass))
     print(
         Fore.BLUE
         + "\n"
@@ -227,7 +225,7 @@ def rsa_enc_manual():
     PADDING = "{"
     pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * PADDING
     EncodeAES = lambda c, s: base64.b64encode(c.encrypt(pad(s)))
-    secret = ran_generator()
+    secret = random_key(4)
     passphrase = secret
     secret = str.encode(secret)
     cipher = AES.new(secret)
@@ -247,7 +245,7 @@ def aes_enc_auto():
     data = get("plaintext")
     data = data.encode()
     filename = get("filename")
-    keypass = ran_generator()
+    keypass = random_key(4)
     keypass2 = keypass
     keypass = keypass.encode()
     cipher = AES.new(keypass, AES.MODE_EAX)
