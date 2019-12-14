@@ -58,7 +58,7 @@ def hex_enc():
     data = input(Fore.RED + "Enter Your Plain Text Message: ")
     data = data.encode()
     enc = binascii.hexlify(data)
-    enc = enc.encode()
+    enc = enc.decode()
     print("\n" + Fore.RED + enc + Style.RESET_ALL + "\n")
 
 
@@ -70,7 +70,7 @@ def hex_dec():
     data = input(Fore.RED + "Enter Your Encrypted Form: ")
     data = data.encode()
     dec = binascii.unhexlify(data)
-    dec = dec.encode()
+    dec = dec.decode()
     print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
 
 
