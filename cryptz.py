@@ -60,6 +60,10 @@ def get_encoded():
     return get_input(Fore.YELLOW, "Enter encoded message: ")
 
 
+def get_encrypted():
+    return get_input(Fore.YELLOW, "Enter encrypted message: ")
+
+
 def get_filename():
     return get_input(Fore.MAGENTA, "Specify filename: ")
 
@@ -73,21 +77,28 @@ def saved_as(filename):
 
 
 def show_output(color, type, output):
-    print(f"{color}{type}:{Style.RESET_ALL}\n{output}\n")
+    print(f"{color}{type}:{Style.RESET_ALL}\n{output}")
 
 
 def show_encoded(output):
-    show_output(Fore.YELLOW, "Encoded output", output)
+    show_output(Fore.YELLOW, "Encoded message", output)
+
+
+def show_encrypted(output):
+    show_output(Fore.YELLOW, "Encrypted message", output)
 
 
 def show_plaintext(output):
     show_output(Fore.GREEN, "Plaintext", output)
 
 
+def show_password(output):
+    show_output(Fore.RED, "Encryption password", output)
+
+
 def ran_generator():
-    chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
-    size = 4
-    keypass = "".join(random.choice(chars) for x in range(size, 20))
+    chars = [c for c in string.printable if c not in string.whitespace]
+    keypass = "".join(random.choice(chars) for x in range(32))
     return keypass
 
 
@@ -163,26 +174,23 @@ MENU_OPTIONS.append(binhex_dec)
 
 def fernet_enc():
     """Encrypt with Fernet. (Symmetric)"""
-    data = get_plaintext()
-    key = Fernet.generate_key()
-    e = Fernet(key)
-    encry = e.encrypt(data)
-    encry = encry.decode()
-    key = key.decode()
-    print(Fore.RED + "Your Decryption password: [%s]" % key)
-    print("\n" + Fore.GREEN + "Encryption Value [%s]" % encry + "\n")
-#MENU_OPTIONS.append(fernet_enc)
+    plaintext = get_plaintext()
+    encryption_key = Fernet.generate_key()
+    instance = Fernet(encryption_key)
+    output = instance.encrypt(plaintext).decode()
+    show_password(encryption_key.decode())
+    show_encrypted(output)
+MENU_OPTIONS.append(fernet_enc)
 
 
 def fernet_dec():
     """Decrypt with Fernet. (Symmetric)"""
-    encr = get_encoded()
+    encrypted_text = get_encrypted()
     password = get_password()
-    D = Fernet(password)
-    decr = D.decrypt(encr)
-    decr = decr.decode()
-    print("\n" + Fore.RED + "Decrypted Value: [%s]" % decr + "\n")
-#MENU_OPTIONS.append(fernet_dec)
+    instance = Fernet(password)
+    decrypted_text = instance.decrypt(encrypted_text).decode()
+    show_plaintext(decrypted_text)
+MENU_OPTIONS.append(fernet_dec)
 
 
 def aes_enc_manual():
@@ -311,7 +319,7 @@ def main():
     try:
         while True:
             print(
-                Fore.CYAN
+                "\n" + Fore.CYAN
                 + "Choose from the following options, or press Ctrl-C to quit."
                 + Style.RESET_ALL
             )
