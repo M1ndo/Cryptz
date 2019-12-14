@@ -62,6 +62,18 @@ def get_password():
     return get_input(Fore.RED, "Enter encryption password: ")
 
 
+def show_output(color, type, output):
+    print(f"{color}{type}:{Style.RESET_ALL}\n{output}\n")
+
+
+def show_encoded(output):
+    show_output(Fore.YELLOW, "Encoded output", output)
+
+
+def show_plaintext(output):
+    show_output(Fore.GREEN, "Plaintext", output)
+
+
 def ran_generator():
     chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
     size = 4
@@ -71,20 +83,18 @@ def ran_generator():
 
 def hex_enc():
     """Encode to Hexadecimal."""
-    data = get_plaintext()
-    enc = binascii.hexlify(data)
-    enc = enc.decode()
-    print("\n" + Fore.RED + enc + Style.RESET_ALL + "\n")
-#MENU_OPTIONS.append(hex_enc)
+    plaintext = get_plaintext()
+    output = binascii.hexlify(plaintext).decode()
+    show_encoded(output)
+MENU_OPTIONS.append(hex_enc)
 
 
 def hex_dec():
     """Decode from Hexadecimal."""
-    data = get_encoded()
-    dec = binascii.unhexlify(data)
-    dec = dec.decode()
-    print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
-#MENU_OPTIONS.append(hex_dec)
+    encoded_message = get_encoded()
+    output = binascii.unhexlify(encoded_message).decode()
+    show_plaintext(output)
+MENU_OPTIONS.append(hex_dec)
 
 
 def binhex4_enc():
@@ -301,6 +311,7 @@ def main():
                     f"{MENU_OPTIONS[index].__doc__}"
                 )
             choice = get_input(Fore.CYAN, "CRYPTZ -> ")
+            print()
             try:
                 MENU_OPTIONS[int(choice) - 1]()
             except IndexError:
