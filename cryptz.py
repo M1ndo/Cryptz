@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # Created By r2dr0dn
-# With Improvements by Haxys
-# Updated At 02/12/2019
-# Don't Copy The Code Without Giving Me The Credits Nerds !!!
+# Improvements by Haxys
+# Updated 2019.12.04
 
 import base64
 import binascii
