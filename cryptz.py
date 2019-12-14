@@ -75,9 +75,7 @@ def hex_enc():
     enc = binascii.hexlify(data)
     enc = enc.decode()
     print("\n" + Fore.RED + enc + Style.RESET_ALL + "\n")
-
-
-MENU_OPTIONS.append(hex_enc)
+#MENU_OPTIONS.append(hex_enc)
 
 
 def hex_dec():
@@ -86,9 +84,7 @@ def hex_dec():
     dec = binascii.unhexlify(data)
     dec = dec.decode()
     print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
-
-
-MENU_OPTIONS.append(hex_dec)
+#MENU_OPTIONS.append(hex_dec)
 
 
 def binhex4_enc():
@@ -97,8 +93,6 @@ def binhex4_enc():
     enc = binascii.b2a_hqx(data)
     enc = enc.decode()
     print("\n" + Fore.CYAN + enc + Style.RESET_ALL + "\n")
-
-
 # Uncomment the following line once you have a working decoder.
 # MENU_OPTIONS.append(binhex4_enc)
 
@@ -123,9 +117,7 @@ def fernet_enc():
     key = key.decode()
     print(Fore.RED + "Your Decryption password: [%s]" % key)
     print("\n" + Fore.GREEN + "Encryption Value [%s]" % encry + "\n")
-
-
-MENU_OPTIONS.append(fernet_enc)
+#MENU_OPTIONS.append(fernet_enc)
 
 
 def fernet_dec():
@@ -136,9 +128,7 @@ def fernet_dec():
     decr = D.decrypt(encr)
     decr = decr.decode()
     print("\n" + Fore.RED + "Decrypted Value: [%s]" % decr + "\n")
-
-
-MENU_OPTIONS.append(fernet_dec)
+#MENU_OPTIONS.append(fernet_dec)
 
 
 def uu_enc():
@@ -147,9 +137,7 @@ def uu_enc():
     enc = binascii.b2a_uu(data)
     enc = enc.encode()
     print("\n" + Fore.RED + enc + Style.RESET_ALL + "\n")
-
-
-MENU_OPTIONS.append(uu_enc)
+#MENU_OPTIONS.append(uu_enc)
 
 
 def uu_dec():
@@ -158,9 +146,7 @@ def uu_dec():
     dec = binascii.a2b_uu(data)
     dec = dec.encode()
     print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
-
-
-MENU_OPTIONS.append(uu_dec)
+#MENU_OPTIONS.append(uu_dec)
 
 
 def base64_enc():
@@ -168,9 +154,7 @@ def base64_enc():
     data = get_plaintext()
     enc = pybase64._pybase64.b64encode(data).decode()
     print("\n" + Fore.YELLOW + enc + Style.RESET_ALL + "\n")
-
-
-MENU_OPTIONS.append(base64_enc)
+#MENU_OPTIONS.append(base64_enc)
 
 
 def base64_dec():
@@ -178,9 +162,7 @@ def base64_dec():
     data = get_encoded()
     dec = pybase64._pybase64.b64decode(data).decode()
     print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
-
-
-MENU_OPTIONS.append(base64_dec)
+#MENU_OPTIONS.append(base64_dec)
 
 
 def aes_enc_manual():
@@ -201,8 +183,6 @@ def aes_enc_manual():
         + Style.RESET_ALL
         + "\n"
     )
-
-
 # Uncomment the following line once you have a working decryptor.
 # MENU_OPTIONS.append(aes_enc_manual)
 
@@ -248,8 +228,6 @@ def rsa_enc_manual():
         Fore.WHITE + Style.DIM + "Encrypted Data: ",
         encoded + "\n" + Style.RESET_ALL,
     )
-
-
 # Uncomment the following line once you have a working decryptor.
 # MENU_OPTIONS.append(rsa_enc_manual)
 
@@ -289,12 +267,9 @@ def aes_enc_auto():
         + Fore.RED
         + "[%s.enc] \n" % (filename)
     )
+#MENU_OPTIONS.append(aes_enc_auto)
 
 
-MENU_OPTIONS.append(aes_enc_auto)
-
-
-# AES Auth Decryption:
 def aes_dec_auto():
     """Decrypt with AES. (Automatic)"""
     filename = input(
@@ -308,9 +283,7 @@ def aes_dec_auto():
     data = cipher.decrypt_and_verify(ciphertext, tag)
     data = data.encode()
     print(Fore.MAGENTA + "\n" + "Decrypted: " + data + Style.RESET_ALL + "\n")
-
-
-MENU_OPTIONS.append(aes_dec_auto)
+#MENU_OPTIONS.append(aes_dec_auto)
 
 
 # Main Function
