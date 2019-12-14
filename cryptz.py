@@ -218,24 +218,24 @@ def aes_enc_manual():
 # MENU_OPTIONS.append(aes_dec_manual)
 
 
-def rsa_enc_manual():
-    """Encrypt with RSA. (Manual)"""
-    data = get("plaintext")
-    BLOCK_SIZE = 16
-    PADDING = "{"
-    pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * PADDING
-    EncodeAES = lambda c, s: base64.b64encode(c.encrypt(pad(s)))
-    secret = random_key(4)
-    passphrase = secret
-    secret = str.encode(secret)
-    cipher = AES.new(secret)
-    encoded = EncodeAES(cipher, data)
-    encoded = bytes.decode(encoded)
-    print(Fore.CYAN + "\n" + "encryption key:" + passphrase + "\n")
-    print(
-        Fore.WHITE + Style.DIM + "Encrypted Data: ",
-        encoded + "\n" + Style.RESET_ALL,
-    )
+#def rsa_enc_manual():
+#    """Encrypt with RSA. (Manual)"""
+#    data = get("plaintext")
+#    BLOCK_SIZE = 16
+#    PADDING = "{"
+#    pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * PADDING
+#    EncodeAES = lambda c, s: base64.b64encode(c.encrypt(pad(s)))
+#    secret = random_key(4)
+#    passphrase = secret
+#    secret = str.encode(secret)
+#    cipher = AES.new(secret)
+#    encoded = EncodeAES(cipher, data)
+#    encoded = bytes.decode(encoded)
+#    print(Fore.CYAN + "\n" + "encryption key:" + passphrase + "\n")
+#    print(
+#        Fore.WHITE + Style.DIM + "Encrypted Data: ",
+#        encoded + "\n" + Style.RESET_ALL,
+#    )
 # Uncomment the following line once you have a working decryptor.
 # MENU_OPTIONS.append(rsa_enc_manual)
 
