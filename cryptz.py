@@ -15,7 +15,6 @@ import string
 
 try:
     from colorama import Fore, Style, init
-    import pybase64
     from Crypto.Cipher import AES
     from cryptography.fernet import Fernet
 except ImportError:
@@ -116,7 +115,7 @@ MENU_OPTIONS.append(uu_dec)
 def base64_enc():
     """Encode with Base64."""
     plaintext = get_plaintext()
-    output = pybase64._pybase64.b64encode(plaintext).decode()
+    output = base64.b64encode(plaintext).decode()
     show_encoded(output)
 MENU_OPTIONS.append(base64_enc)
 
@@ -124,7 +123,7 @@ MENU_OPTIONS.append(base64_enc)
 def base64_dec():
     """Decode with Base64."""
     encoded_message = get_encoded()
-    output = pybase64._pybase64.b64decode(encoded_message).decode()
+    output = base64.b64decode(encoded_message).decode()
     show_plaintext(output)
 MENU_OPTIONS.append(base64_dec)
 
