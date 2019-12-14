@@ -49,10 +49,6 @@ def reverse_char(s):
     return s[::-1]
 
 
-def unreversed_char(s):
-    return s[::-1]
-
-
 def add_string(s):
     return s[:5] + strings + s[5:]
 
@@ -91,7 +87,7 @@ def decrypted_base():
     dec = pybase64._pybase64.b64decode(data)
     dec = bytes.decode(dec)
     dec = rem_string(dec, strings)
-    dec = unreversed_char(dec)
+    dec = reverse_char(dec)
     dec = rem_string(dec, strings)
     print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
     # print("\n")
