@@ -113,6 +113,22 @@ def uu_dec():
 MENU_OPTIONS.append(uu_dec)
 
 
+def base64_enc():
+    """Encode with Base64."""
+    plaintext = get_plaintext()
+    output = pybase64._pybase64.b64encode(plaintext).decode()
+    show_encoded(output)
+MENU_OPTIONS.append(base64_enc)
+
+
+def base64_dec():
+    """Decode with Base64."""
+    encoded_message = get_encoded()
+    output = pybase64._pybase64.b64decode(encoded_message).decode()
+    show_plaintext(output)
+MENU_OPTIONS.append(base64_dec)
+
+
 def binhex4_enc():
     """Encode with BinHex4."""
     data = get_plaintext()
@@ -155,22 +171,6 @@ def fernet_dec():
     decr = decr.decode()
     print("\n" + Fore.RED + "Decrypted Value: [%s]" % decr + "\n")
 #MENU_OPTIONS.append(fernet_dec)
-
-
-def base64_enc():
-    """Encode with Base64."""
-    data = get_plaintext()
-    enc = pybase64._pybase64.b64encode(data).decode()
-    print("\n" + Fore.YELLOW + enc + Style.RESET_ALL + "\n")
-#MENU_OPTIONS.append(base64_enc)
-
-
-def base64_dec():
-    """Decode with Base64."""
-    data = get_encoded()
-    dec = pybase64._pybase64.b64decode(data).decode()
-    print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
-#MENU_OPTIONS.append(base64_dec)
 
 
 def aes_enc_manual():
