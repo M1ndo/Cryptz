@@ -7,9 +7,7 @@ import base64
 import binascii
 import datetime
 import random
-import sqlite3
 import string
-from time import sleep
 
 try:
     from colorama import Fore, Style, init
@@ -19,20 +17,15 @@ try:
     from Crypto.Cipher import PKCS1_OAEP, AES
     from cryptography.fernet import Fernet
 except ImportError:
-    print("[!] Missing Python libraries.\n"
-          " |_ Run: pip install -r requirements.txt")
+    print(
+        "[!] Missing Python libraries.\n"
+        " |_ Run: pip install -r requirements.txt"
+    )
     exit(1)
 
 
-def clear():
-    """Clear the terminal window."""
-    print('\x1b[2J')
-
-
 init()
-clear()
-print(f"""
-{Fore.MAGENTA}
+print(f"""{Fore.MAGENTA}
 https://github.com/r2dr0dn
 {Fore.CYAN}
  ####   #####   #   #  #####   #####  ######
@@ -45,12 +38,6 @@ https://github.com/r2dr0dn
 made by: {Fore.RED}r2dr0dn{Style.RESET_ALL}
 """)
 
-## Set Date ####
-now = datetime.datetime.now()
-hour = now.hour
-min = now.minute
-sec = now.second
-timenow = "{}:{}:{}".format(hour, min, sec)
 # Used Strings #
 strings = "1h3sgj5ks3erhg3h5dh23455wer32cfewjkfwerweh"
 
@@ -82,7 +69,6 @@ def rem_string(text, char):
 
 
 def encrypted_base():
-    clear()
     data = input(Fore.RED + "Enter Your Plain Text Message: ")
     # print("\n")
     data = data + strings
@@ -99,7 +85,6 @@ def encrypted_base():
 
 
 def decrypted_base():
-    clear()
     data = input(Fore.RED + "Enter Your Encrypted Form: ")
     # print("\n")
     data = str.encode(data)
@@ -116,7 +101,6 @@ def decrypted_base():
 
 
 def uu_encrypt():
-    clear()
     data = input(Fore.RED + "Enter Your Plain Text Message: ")
     data = data.encode("utf-8")
     enc = binascii.b2a_uu(data)
@@ -129,7 +113,6 @@ def uu_encrypt():
 
 
 def uu_decrypt():
-    clear()
     data = input(Fore.RED + "Enter Your Encrypted Form: ")
     # data = data.encode('utf-8')
     dec = binascii.a2b_uu(data)
@@ -141,7 +124,6 @@ def uu_decrypt():
 
 
 def hex_encrypt():
-    clear()
     data = input(Fore.RED + "Enter Your Plain Text Message: ")
     data = data.encode("utf-8")
     enc = binascii.hexlify(data)
@@ -153,7 +135,6 @@ def hex_encrypt():
 
 
 def hex_decrypt():
-    clear()
     data = input(Fore.RED + "Enter Your Encrypted Form: ")
     data = data.encode("utf-8")
     dec = binascii.unhexlify(data)
@@ -165,7 +146,6 @@ def hex_decrypt():
 
 
 def hqx_encryption():
-    clear()
     data = input(Fore.GREEN + "Enter Your Plain Text Message: ")
     data = data.encode("utf-8")
     enc = binascii.b2a_hqx(data)
@@ -177,7 +157,6 @@ def hqx_encryption():
 
 
 # def hqx_decryption():
-#     clear()
 #     data = input(Fore.RED + "Enter Your Encrypted Form: ")
 #     data = str.encode(data)
 #     # data = '-6)c0M8h1$PaGf9PFR)'
@@ -186,7 +165,6 @@ def hqx_encryption():
 #     print("\n" + Fore.MAGENTA + Style.DIM + dec + Style.RESET_ALL + "\n")
 # Symmetric Encryption
 def symmet_encryption():
-    clear()
     data = input(Fore.RED + "Enter Your Plain Text Message: ")
     data = data.encode()
     key = Fernet.generate_key()
@@ -200,7 +178,6 @@ def symmet_encryption():
 
 # Symmetric decryption
 def symmet_decryption():
-    clear()
     password = input(Fore.RED + "Enter Decryption Password: ")
     password = password.encode()
     encr = input(Fore.GREEN + "Enter Encryption Value: ")
@@ -213,8 +190,7 @@ def symmet_decryption():
 
 # Base64 Standart encryption
 def base64_encryption():
-    clear()
-    data = input(Fore.MAGENTA+ "Enter Your Plain Text Message: ")
+    data = input(Fore.MAGENTA + "Enter Your Plain Text Message: ")
     data = data.encode("utf-8")
     enc = pybase64._pybase64.b64encode(data)
     enc = enc.decode("utf-8")
@@ -225,7 +201,6 @@ def base64_encryption():
 
 
 def base64_decryption():
-    clear()
     data = input(Fore.RED + "Enter Your Encrypted Form: ")
     data = data.encode("utf-8")
     dec = pybase64._pybase64.b64decode(data)
@@ -247,10 +222,9 @@ def ran_generator():
 
 
 def aes_encrypt_m():
-    clear()
     keypass = ran_generator()
     keypass2 = keypass
-    data = input(Fore.MAGENTA+ "Enter Your Plain Text Message: ")
+    data = input(Fore.MAGENTA + "Enter Your Plain Text Message: ")
     data = data.encode("utf-8")
     keypass = keypass.encode("utf-8")
     cipher = AES.new(keypass, AES.MODE_EAX)
@@ -292,7 +266,6 @@ def aes_encrypt_m():
 
 
 def rsa_enc():
-    clear()
     data = input(Fore.RED + Style.BRIGHT + "Enter Your Plain Text Message: ")
     BLOCK_SIZE = 16
     PADDING = "{"
@@ -305,15 +278,17 @@ def rsa_enc():
     encoded = EncodeAES(cipher, data)
     encoded = bytes.decode(encoded)
     print(Fore.CYAN + "\n" + "encryption key:" + passphrase + "\n")
-    print(Fore.WHITE + Style.DIM + "Encrypted Data: ", encoded + "\n" + Style.RESET_ALL)
+    print(
+        Fore.WHITE + Style.DIM + "Encrypted Data: ",
+        encoded + "\n" + Style.RESET_ALL,
+    )
 
 
 # AES Auth encryption
 
 
 def aes_encrypt_a():
-    clear()
-    data = input(Fore.MAGENTA+ "Enter Your Plain Text Message: ")
+    data = input(Fore.MAGENTA + "Enter Your Plain Text Message: ")
     data = data.encode("utf-8")
     filename = input(
         Fore.YELLOW + "Enter FileName To Encrypted Data Be Saved In: "
@@ -332,22 +307,29 @@ def aes_encrypt_a():
         Fore.WHITE
         + Style.DIM
         + "\nUse "
-        + Style.NORMAL + Fore.RED
+        + Style.NORMAL
+        + Fore.RED
         + f"[{keypass2}] "
-        + Fore.WHITE + Style.DIM
+        + Fore.WHITE
+        + Style.DIM
         + "To Decrypt Your Data"
         + Style.RESET_ALL
     )
-    print(Fore.GREEN + "Data Has Been Saved In" + Fore.RED + "[%s.enc] \n" % (filename))
+    print(
+        Fore.GREEN
+        + "Data Has Been Saved In"
+        + Fore.RED
+        + "[%s.enc] \n" % (filename)
+    )
 
 
 # AES Auth Decryption:
 
 
 def aes_decrypt_a():
-    clear()
     filename = input(
-        Fore.RED + "Enter Encrypted Data File (make sure it on the same path): "
+        Fore.RED
+        + "Enter Encrypted Data File (make sure it on the same path): "
     )
     file_in = open(filename, "rb")
     keypass = input(Fore.RED + "Enter Decryption Password: ")
@@ -364,134 +346,91 @@ def aes_decrypt_a():
 
 def main():
     try:
-        for i in range(1):
-            password = input(Fore.MAGENTA + "Enter License Key: ")
-            with sqlite3.connect("store.db") as db:
-                connect1 = db.cursor()
-            catch_pass = "SELECT * FROM passman WHERE licensekey = ?"
-            connect1.execute(catch_pass, [(password)])
-            result = connect1.fetchall()
-            if result:
-                for i in result:
-                    print(Fore.GREEN + "\n  Access Granted!!!")
-                    sleep(3)
-                    print("  Started At {}".format(now))
-                    sleep(0.10)
-                    print("  Loading Resources...[0%]")
-                    sleep(0.10)
-                    print("  Loading Resources...[10%]")
-                    sleep(0.10)
-                    print("  Loading Resources...[20%]")
-                    sleep(0.10)
-                    print("  Loading Resources...[30%]")
-                    sleep(0.10)
-                    print("  Loading Resources...[40%]")
-                    sleep(0.10)
-                    print("  Loading Resources...[50%]")
-                    sleep(0.10)
-                    print("  Loading Resources...[60%]")
-                    sleep(0.10)
-                    print("  Loading Resources...[70%]")
-                    sleep(0.10)
-                    print("  Loading Resources...[80%]")
-                    sleep(0.10)
-                    print("  Loading Resources...[90%]")
-                    sleep(0.10)
-                    print("  Loading Resources...[1000000000000%]")
-                    sleep(1)
-                    print("  CRYPTZ is starting!!")
-                    print(
-                        Fore.YELLOW
-                        + """
-                    Welcome To CRYPTZ The Unbreakable Tool
-                    """
-                    )
-                    sleep(3)
-                    clear()
-
-                    def menu():
-                        print(Fore.MAGENTA + "  1.  Base64 Hard Encryption: ")
-                        print(Fore.YELLOW + "  2.  Base64 Hard Decryption: ")
-                        print(Fore.MAGENTA+ "  3.  Hex Encryption: ")
-                        print(Fore.MAGENTA+ "  4.  Hex Decryption: ")
-                        print(Fore.MAGENTA+ "  5.  Binhex4 Encryption: ")
-                        print(Fore.MAGENTA+ "  6.  Symmetric Encryption: ")
-                        print(Fore.MAGENTA+ "  7.  Symmetric Decryption: ")
-                        print(Fore.MAGENTA+ "  8.  UU Encryption: ")
-                        print(Fore.MAGENTA+ "  9.  UU Decryption: ")
-                        print(Fore.MAGENTA+ "  10.  Base64 Normal Encryption: ")
-                        print(Fore.MAGENTA+ "  11. Base64 Normal Decryption: ")
-                        print(Fore.YELLOW + "  12. AES Manual Encryption: ")
-                        print(Fore.YELLOW + "  13. RSA Manual Decryption: ")
-                        print(Fore.YELLOW + "  14. AES Auth Decryption: ")
-                        print(Fore.YELLOW + "  15. AES Auth Decryption: ")
-                        print(Fore.MAGENTA+ "  16. Exit")
-                        choice = input(Fore.CYAN + "  CRYPTZ -> " + Style.RESET_ALL)
-                        if choice in ["1"]:
-                            encrypted_base()
-                            menu()
-                        elif choice in ["2"]:
-                            decrypted_base()
-                            menu()
-                        elif choice in ["3"]:
-                            hex_encrypt()
-                            menu()
-                        elif choice in ["4"]:
-                            hex_decrypt()
-                            menu()
-                        elif choice in ["5"]:
-                            hqx_encryption()
-                            menu()
-                        elif choice in ["6"]:
-                            symmet_encryption()
-                            menu()
-                        elif choice in ["7"]:
-                            symmet_decryption()
-                            menu()
-                        elif choice in ["8"]:
-                            uu_encrypt()
-                            menu()
-                        elif choice in ["9"]:
-                            uu_decrypt()
-                            menu()
-                        elif choice in ["10"]:
-                            base64_encryption()
-                            menu()
-                        elif choice in ["11"]:
-                            base64_decryption()
-                            menu()
-                        elif choice in ["12"]:
-                            aes_encrypt_m()
-                            menu()
-                        elif choice in ["13"]:
-                            rsa_enc()
-                            menu()
-                        elif choice in ["14"]:
-                            aes_encrypt_a()
-                            menu()
-                        elif choice in ["15"]:
-                            aes_decrypt_a()
-                            menu()
-                        elif choice in ["16"]:
-                            print(Fore.RED + """\n  Quiting... """ + Style.RESET_ALL)
-                            exit(1)
-                        else:
-                            print(
-                                Fore.RED
-                                + """  Unknown Option Quiting... \n"""
-                                + Style.RESET_ALL
-                            )
-                            exit(1)
-
-                    menu()
+        def menu():
+            print(Fore.MAGENTA + "  1.  Base64 Hard Encryption: ")
+            print(Fore.YELLOW + "  2.  Base64 Hard Decryption: ")
+            print(Fore.MAGENTA + "  3.  Hex Encryption: ")
+            print(Fore.MAGENTA + "  4.  Hex Decryption: ")
+            print(Fore.MAGENTA + "  5.  Binhex4 Encryption: ")
+            print(Fore.MAGENTA + "  6.  Symmetric Encryption: ")
+            print(Fore.MAGENTA + "  7.  Symmetric Decryption: ")
+            print(Fore.MAGENTA + "  8.  UU Encryption: ")
+            print(Fore.MAGENTA + "  9.  UU Decryption: ")
+            print(Fore.MAGENTA + "  10.  Base64 Normal Encryption: ")
+            print(Fore.MAGENTA + "  11. Base64 Normal Decryption: ")
+            print(Fore.YELLOW + "  12. AES Manual Encryption: ")
+            print(Fore.YELLOW + "  13. RSA Manual Decryption: ")
+            print(Fore.YELLOW + "  14. AES Auth Decryption: ")
+            print(Fore.YELLOW + "  15. AES Auth Decryption: ")
+            print(Fore.MAGENTA + "  16. Exit")
+            choice = input(Fore.CYAN + "  CRYPTZ -> " + Style.RESET_ALL)
+            if choice in ["1"]:
+                encrypted_base()
+                menu()
+            elif choice in ["2"]:
+                decrypted_base()
+                menu()
+            elif choice in ["3"]:
+                hex_encrypt()
+                menu()
+            elif choice in ["4"]:
+                hex_decrypt()
+                menu()
+            elif choice in ["5"]:
+                hqx_encryption()
+                menu()
+            elif choice in ["6"]:
+                symmet_encryption()
+                menu()
+            elif choice in ["7"]:
+                symmet_decryption()
+                menu()
+            elif choice in ["8"]:
+                uu_encrypt()
+                menu()
+            elif choice in ["9"]:
+                uu_decrypt()
+                menu()
+            elif choice in ["10"]:
+                base64_encryption()
+                menu()
+            elif choice in ["11"]:
+                base64_decryption()
+                menu()
+            elif choice in ["12"]:
+                aes_encrypt_m()
+                menu()
+            elif choice in ["13"]:
+                rsa_enc()
+                menu()
+            elif choice in ["14"]:
+                aes_encrypt_a()
+                menu()
+            elif choice in ["15"]:
+                aes_decrypt_a()
+                menu()
+            elif choice in ["16"]:
+                print(Fore.RED + """\n  Quiting... """ + Style.RESET_ALL)
+                exit(1)
             else:
                 print(
-                    "  Unauthorized Access !!\n  To get a License Key you will need to contact creators for one"
+                    Fore.RED
+                    + """  Unknown Option Quiting... \n"""
+                    + Style.RESET_ALL
                 )
                 exit(1)
+
+        menu()
     except KeyboardInterrupt:
         print(Fore.CYAN + "\nCtrl + c Detected!!")
-        print(Fore.RED + "Quiting ..\n" + Fore.WHITE + Style.BRIGHT + "Have A Nice Day :)" + Style.RESET_ALL)
+        print(
+            Fore.RED
+            + "Quiting ..\n"
+            + Fore.WHITE
+            + Style.BRIGHT
+            + "Have A Nice Day :)"
+            + Style.RESET_ALL
+        )
         exit(1)
 
 
