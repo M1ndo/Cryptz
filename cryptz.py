@@ -9,9 +9,12 @@ Updated 2019.12.04.
 
 import base64
 import binascii
+import binhex
 import datetime
+import os
 import random
 import string
+from tempfile import NamedTemporaryFile
 
 try:
     from colorama import Fore, Style, init
@@ -57,8 +60,16 @@ def get_encoded():
     return get_input(Fore.YELLOW, "Enter encoded message: ")
 
 
+def get_filename():
+    return get_input(Fore.MAGENTA, "Specify filename: ")
+
+
 def get_password():
     return get_input(Fore.RED, "Enter encryption password: ")
+
+
+def saved_as(filename):
+    print(f"{Fore.YELLOW}Output saved as: {Style.RESET_ALL}{filename}\n")
 
 
 def show_output(color, type, output):
@@ -128,24 +139,26 @@ def base64_dec():
 MENU_OPTIONS.append(base64_dec)
 
 
-def binhex4_enc():
+def binhex_enc():
     """Encode with BinHex4."""
-    data = get_plaintext()
-    enc = binascii.b2a_hqx(data)
-    enc = enc.decode()
-    print("\n" + Fore.CYAN + enc + Style.RESET_ALL + "\n")
-# Uncomment the following line once you have a working decoder.
-# MENU_OPTIONS.append(binhex4_enc)
+    temp_filename = f"temp_{ran_generator()}"
+    with open(temp_filename, "wb") as outfile:
+        outfile.write(get_plaintext())
+    dest_filename = get_filename().decode()
+    binhex.binhex(temp_filename, dest_filename)
+    os.unlink(temp_filename)
+    saved_as(dest_filename)
+MENU_OPTIONS.append(binhex_enc)
 
 
-# TODO: Fix this code.
-# def binhex4_dec():
-#     """Decode with BinHex4."""
-#     data = get_encoded()
-#     dec = binascii.a2b_hqx(data)
-#     dec = dec.decode()
-#     print("\n" + Fore.MAGENTA + Style.DIM + dec + Style.RESET_ALL + "\n")
-# MENU_OPTIONS.append(binhex4_dec)
+def binhex_dec():
+    """Decode with BinHex4."""
+    temp_filename = f"temp_{ran_generator()}"
+    binhex.hexbin(get_filename().decode(), temp_filename)
+    with open(temp_filename, "rb") as infile:
+        show_plaintext(infile.read().decode())
+    os.unlink(temp_filename)
+MENU_OPTIONS.append(binhex_dec)
 
 
 def fernet_enc():
