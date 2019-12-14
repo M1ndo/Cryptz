@@ -1,3 +1,4 @@
 pybase64
 pycryptodome
 cryptography
+colorama
