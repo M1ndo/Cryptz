@@ -43,20 +43,7 @@ made by: {Fore.RED}r2dr0dn{Style.RESET_ALL}
 )
 
 # Global Variables
-strings = "1h3sgj5ks3erhg3h5dh23455wer32cfewjkfwerweh"
 MENU_OPTIONS = list()
-
-
-def add_string(s):
-    return s[:5] + strings + s[5:]
-
-
-def rem_string(text, char):
-    resul = ""
-    for c in text:
-        if c != char:
-            resul += c
-    return text.replace(char, "")
 
 
 def ran_generator():
@@ -64,36 +51,6 @@ def ran_generator():
     size = 4
     keypass = "".join(random.choice(chars) for x in range(size, 20))
     return keypass
-
-
-def base64_hard_enc():
-    """Encode with Proprietary Blend."""
-    data = input(Fore.RED + "Enter Your Plain Text Message: ")
-    data = data + strings
-    data = add_string(data)
-    data = data[::-1]
-    data = str.encode(data)
-    encode1 = pybase64._pybase64.b64encode(data)
-    encode1 = bytes.decode(encode1)
-    print("\n" + Fore.RED + encode1 + Style.RESET_ALL + "\n")
-
-
-MENU_OPTIONS.append(base64_hard_enc)
-
-
-def base64_hard_dec():
-    """Decode with Proprietary Blend."""
-    data = input(Fore.RED + "Enter Your Encrypted Form: ")
-    data = str.encode(data)
-    dec = pybase64._pybase64.b64decode(data)
-    dec = bytes.decode(dec)
-    dec = rem_string(dec, strings)
-    dec = dec[::-1]
-    dec = rem_string(dec, strings)
-    print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
-
-
-MENU_OPTIONS.append(base64_hard_dec)
 
 
 def hex_enc():
