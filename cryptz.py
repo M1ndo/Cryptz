@@ -97,6 +97,22 @@ def hex_dec():
 MENU_OPTIONS.append(hex_dec)
 
 
+def uu_enc():
+    """Encode with uuencode."""
+    plaintext = get_plaintext()
+    output = binascii.b2a_uu(plaintext).decode()
+    show_encoded(output)
+MENU_OPTIONS.append(uu_enc)
+
+
+def uu_dec():
+    """Decode with uudecode."""
+    encoded_message = get_encoded()
+    output = binascii.a2b_uu(encoded_message).decode()
+    show_plaintext(output)
+MENU_OPTIONS.append(uu_dec)
+
+
 def binhex4_enc():
     """Encode with BinHex4."""
     data = get_plaintext()
@@ -139,24 +155,6 @@ def fernet_dec():
     decr = decr.decode()
     print("\n" + Fore.RED + "Decrypted Value: [%s]" % decr + "\n")
 #MENU_OPTIONS.append(fernet_dec)
-
-
-def uu_enc():
-    """Encode with uuencode."""
-    data = get_plaintext()
-    enc = binascii.b2a_uu(data)
-    enc = enc.encode()
-    print("\n" + Fore.RED + enc + Style.RESET_ALL + "\n")
-#MENU_OPTIONS.append(uu_enc)
-
-
-def uu_dec():
-    """Decode with uudecode."""
-    data = get_encoded()
-    dec = binascii.a2b_uu(data)
-    dec = dec.encode()
-    print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
-#MENU_OPTIONS.append(uu_dec)
 
 
 def base64_enc():
