@@ -418,15 +418,9 @@ def main():
 
         menu()
     except KeyboardInterrupt:
-        print(Fore.CYAN + "\nCtrl + c Detected!!")
-        print(
-            Fore.RED
-            + "Quiting ..\n"
-            + Fore.WHITE
-            + Style.BRIGHT
-            + "Have A Nice Day :)"
-            + Style.RESET_ALL
-        )
+        print(f"\n{Fore.RED}Program terminated. "
+              f"{Fore.WHITE}{Style.BRIGHT}Have a nice day!"
+              f"{Style.RESET_ALL}")
         exit(1)
 
 
