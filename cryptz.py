@@ -38,7 +38,7 @@ https://github.com/r2dr0dn
 #       #    #    #    #    #    #       #
 #       #####     #    #####     #      #
 #    #  #   #     #    #         #     #
- ####   #    #    #    #         #    ######  {Fore.RED}v3.0{Style.RESET_ALL}
+ ####   #    #    #    #         #    ######  {Fore.RED}v5.0{Style.RESET_ALL}
 {Fore.CYAN}
 made by: {Fore.RED}r2dr0dn{Style.RESET_ALL}
 """
@@ -48,52 +48,34 @@ made by: {Fore.RED}r2dr0dn{Style.RESET_ALL}
 MENU_OPTIONS = list()
 
 
-def get_input(color, message):
-    return input(color + message + Style.RESET_ALL).encode()
+def get(type):
+    try:
+        (color, message) = {
+            "plaintext": (Fore.GREEN, "Enter plaintext message"),
+            "encoded": (Fore.YELLOW, "Enter encoded message"),
+            "encrypted": (Fore.YELLOW, "Enter encrypted message"),
+            "filename": (Fore.MAGENTA, "Specify filename"),
+            "password": (Fore.RED, "Enter encryption password"),
+        }[type]
+    except KeyError:
+        color = Fore.CYAN
+        message = type
+    return input(f"{color}{message}: {Style.RESET_ALL}").encode()
 
 
-def get_plaintext():
-    return get_input(Fore.GREEN, "Enter plaintext message: ")
-
-
-def get_encoded():
-    return get_input(Fore.YELLOW, "Enter encoded message: ")
-
-
-def get_encrypted():
-    return get_input(Fore.YELLOW, "Enter encrypted message: ")
-
-
-def get_filename():
-    return get_input(Fore.MAGENTA, "Specify filename: ")
-
-
-def get_password():
-    return get_input(Fore.RED, "Enter encryption password: ")
-
-
-def saved_as(filename):
-    print(f"{Fore.YELLOW}Output saved as: {Style.RESET_ALL}{filename}\n")
-
-
-def show_output(color, type, output):
-    print(f"{color}{type}:{Style.RESET_ALL}\n{output}")
-
-
-def show_encoded(output):
-    show_output(Fore.YELLOW, "Encoded message", output)
-
-
-def show_encrypted(output):
-    show_output(Fore.YELLOW, "Encrypted message", output)
-
-
-def show_plaintext(output):
-    show_output(Fore.GREEN, "Plaintext", output)
-
-
-def show_password(output):
-    show_output(Fore.RED, "Encryption password", output)
+def show(type, output):
+    try:
+        (color, message) = {
+            "filename": (Fore.MAGENTA, "Output saved as"),
+            "encoded": (Fore.YELLOW, "Encoded message"),
+            "encrypted": (Fore.YELLOW, "Encrypted message"),
+            "plaintext": (Fore.GREEN, "Plaintext"),
+            "password": (Fore.RED, "Encryption password"),
+        }[type]
+    except KeyError:
+        color = Fore.CYAN
+        message = type
+    print(f"{color}{message}:{Style.RESET_ALL}\n{output}")
 
 
 def ran_generator():
@@ -104,49 +86,49 @@ def ran_generator():
 
 def hex_enc():
     """Encode to Hexadecimal."""
-    plaintext = get_plaintext()
+    plaintext = get("plaintext")
     output = binascii.hexlify(plaintext).decode()
-    show_encoded(output)
+    show("encoded", output)
 MENU_OPTIONS.append(hex_enc)
 
 
 def hex_dec():
     """Decode from Hexadecimal."""
-    encoded_message = get_encoded()
+    encoded_message = get("encoded")
     output = binascii.unhexlify(encoded_message).decode()
-    show_plaintext(output)
+    show("plaintext", output)
 MENU_OPTIONS.append(hex_dec)
 
 
 def uu_enc():
     """Encode with uuencode."""
-    plaintext = get_plaintext()
+    plaintext = get("plaintext")
     output = binascii.b2a_uu(plaintext).decode()
-    show_encoded(output)
+    show("encoded", output)
 MENU_OPTIONS.append(uu_enc)
 
 
 def uu_dec():
     """Decode with uudecode."""
-    encoded_message = get_encoded()
+    encoded_message = get("encoded")
     output = binascii.a2b_uu(encoded_message).decode()
-    show_plaintext(output)
+    show("plaintext", output)
 MENU_OPTIONS.append(uu_dec)
 
 
 def base64_enc():
     """Encode with Base64."""
-    plaintext = get_plaintext()
+    plaintext = get("plaintext")
     output = base64.b64encode(plaintext).decode()
-    show_encoded(output)
+    show("encoded", output)
 MENU_OPTIONS.append(base64_enc)
 
 
 def base64_dec():
     """Decode with Base64."""
-    encoded_message = get_encoded()
+    encoded_message = get("encoded")
     output = base64.b64decode(encoded_message).decode()
-    show_plaintext(output)
+    show("plaintext", output)
 MENU_OPTIONS.append(base64_dec)
 
 
@@ -154,42 +136,42 @@ def binhex_enc():
     """Encode with BinHex4."""
     temp_filename = f"temp_{ran_generator()}"
     with open(temp_filename, "wb") as outfile:
-        outfile.write(get_plaintext())
-    dest_filename = get_filename().decode()
+        outfile.write(get("plaintext"))
+    dest_filename = get("filename").decode()
     binhex.binhex(temp_filename, dest_filename)
     os.unlink(temp_filename)
-    saved_as(dest_filename)
+    show("outfile", dest_filename)
 MENU_OPTIONS.append(binhex_enc)
 
 
 def binhex_dec():
     """Decode with BinHex4."""
     temp_filename = f"temp_{ran_generator()}"
-    binhex.hexbin(get_filename().decode(), temp_filename)
+    binhex.hexbin(get("filename").decode(), temp_filename)
     with open(temp_filename, "rb") as infile:
-        show_plaintext(infile.read().decode())
+        show("plaintext", infile.read().decode())
     os.unlink(temp_filename)
 MENU_OPTIONS.append(binhex_dec)
 
 
 def fernet_enc():
     """Encrypt with Fernet. (Symmetric)"""
-    plaintext = get_plaintext()
+    plaintext = get("plaintext")
     encryption_key = Fernet.generate_key()
     instance = Fernet(encryption_key)
     output = instance.encrypt(plaintext).decode()
-    show_password(encryption_key.decode())
-    show_encrypted(output)
+    show("password", encryption_key.decode())
+    show("encrypted", output)
 MENU_OPTIONS.append(fernet_enc)
 
 
 def fernet_dec():
     """Decrypt with Fernet. (Symmetric)"""
-    encrypted_text = get_encrypted()
-    password = get_password()
+    encrypted_text = get("encrypted")
+    password = get("password")
     instance = Fernet(password)
     decrypted_text = instance.decrypt(encrypted_text).decode()
-    show_plaintext(decrypted_text)
+    show("plaintext", decrypted_text)
 MENU_OPTIONS.append(fernet_dec)
 
 
@@ -197,7 +179,7 @@ def aes_enc_manual():
     """Encrypt with AES. (Manual)"""
     keypass = ran_generator()
     keypass2 = keypass
-    data = get_plaintext()
+    data = get("plaintext")
     keypass = keypass.encode()
     cipher = AES.new(keypass, AES.MODE_EAX)
     ciphertext, tag = cipher.encrypt_and_digest(data)
@@ -218,7 +200,7 @@ def aes_enc_manual():
 # def aes_dec_manual():
 #     """Decrypt with AES. (Manual)"""
 #     try:
-#         keypass = get_password()
+#         keypass = get("password")
 #         tag = input('Enter Tag: ')
 #         # tag = tag.encode()
 #         tag = str.encode(tag)
@@ -240,7 +222,7 @@ def aes_enc_manual():
 
 def rsa_enc_manual():
     """Encrypt with RSA. (Manual)"""
-    data = get_plaintext()
+    data = get("plaintext")
     BLOCK_SIZE = 16
     PADDING = "{"
     pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * PADDING
@@ -262,11 +244,9 @@ def rsa_enc_manual():
 
 def aes_enc_auto():
     """Encrypt with AES. (Automatic)"""
-    data = get_plaintext()
+    data = get("plaintext")
     data = data.encode()
-    filename = get_input(
-        Fore.YELLOW, "Enter output filename: "
-    )
+    filename = get("filename")
     keypass = ran_generator()
     keypass2 = keypass
     keypass = keypass.encode()
@@ -305,7 +285,7 @@ def aes_dec_auto():
         + "Enter Encrypted Data File (make sure it on the same path): "
     )
     file_in = open(filename, "rb")
-    keypass = get_password()
+    keypass = get("password")
     nonce, tag, ciphertext = [file_in.read(x) for x in (16, 16, -1)]
     cipher = AES.new(keypass, AES.MODE_EAX, nonce)
     data = cipher.decrypt_and_verify(ciphertext, tag)
@@ -320,7 +300,7 @@ def main():
         while True:
             print(
                 "\n" + Fore.CYAN
-                + "Choose from the following options, or press Ctrl-C to quit."
+                + "Choose from the following options, or press Ctrl-C to quit:"
                 + Style.RESET_ALL
             )
             for index in range(len(MENU_OPTIONS)):
@@ -328,12 +308,14 @@ def main():
                     f"{index + 1}. {' ' if index < 9 else ''}"
                     f"{MENU_OPTIONS[index].__doc__}"
                 )
-            choice = get_input(Fore.CYAN, "CRYPTZ -> ")
+            choice = get("Selection")
             print()
             try:
                 MENU_OPTIONS[int(choice) - 1]()
             except IndexError:
-                print(Fore.RED + "Unknown option.")
+                print(Fore.RED + "Unknown option." + Style.RESET_ALL)
+            except ValueError:
+                print(Fore.RED + "Invalid input. Please enter the number of your selection." + Style.RESET_ALL)
     except KeyboardInterrupt:
         print(
             f"\n{Fore.RED}Program terminated. "
