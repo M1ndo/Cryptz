@@ -2,40 +2,7 @@
 # Created By r2dr0dn
 # Updated At 02/12/2019
 # Don't Copy The Code Without Giving Me The Credits Nerds !!!
-try:
-    import pybase64
-    import sqlite3
-    import re
-    import os
-    import sys
-    import string
-    import random
-    import datetime
-    from time import sleep as sl
-    from Crypto.PublicKey import RSA
-    from Crypto import Random
-    from Crypto.Cipher import PKCS1_OAEP
-    from Cryptodome.Cipher import AES
-    from Crypto.Cipher import AES as AES2
-    from cryptography.fernet import Fernet
-    import binascii
-    import base64
-except ImportError:
-    print(Red + "You Don't Have Some Required Packages Please Install them manually or use requirments.txt to install them for you!")
-    exit(1)
 
-
-def clear():
-    os.system('clear || cls')
-
-
-clear()
-## Set Date ####
-now = datetime.datetime.now()
-hour = now.hour
-min = now.minute
-sec = now.second
-timenow = "{}:{}:{}".format(hour, min, sec)
 #######Colors###########
 Green = "\033[1;33m"
 Blue = "\033[1;34m"
@@ -63,6 +30,41 @@ unknown13 = "\033[38;5;203m"
 unknown14 = "\033[38;5;113m"
 unknown15 = "\033[38;5;14m"
 ##########################
+
+try:
+    import pybase64
+    import sqlite3
+    import re
+    import os
+    import sys
+    import string
+    import random
+    import datetime
+    from time import sleep as sl
+    from Crypto.PublicKey import RSA
+    from Crypto import Random
+    from Crypto.Cipher import PKCS1_OAEP
+    from Crypto.Cipher import AES
+    from Crypto.Cipher import AES as AES2
+    from cryptography.fernet import Fernet
+    import binascii
+    import base64
+except ImportError:
+    print(Red + "You Don't Have Some Required Packages Please Install them manually or use requirments.txt to install them for you!")
+    exit(1)
+
+
+def clear():
+    os.system('clear || cls')
+
+
+clear()
+## Set Date ####
+now = datetime.datetime.now()
+hour = now.hour
+min = now.minute
+sec = now.second
+timenow = "{}:{}:{}".format(hour, min, sec)
 # Used Strings #
 strings = "1h3sgj5ks3erhg3h5dh23455wer32cfewjkfwerweh"
 # banner
