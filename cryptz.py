@@ -177,22 +177,22 @@ MENU_OPTIONS.append(fernet_dec)
 
 def aes_enc_manual():
     """Encrypt with AES. (Manual)"""
-    keypass = random_key(4)
+    keypass = random_key(16)
     data = get("plaintext")
+    filename = get("filename").decode()
     cipher = AES.new(keypass.encode(), AES.MODE_EAX)
     ciphertext, tag = cipher.encrypt_and_digest(data)
-    print(Fore.GREEN + "\n" + "Encryption Password: {}".format(keypass))
-    print(
-        Fore.BLUE
-        + "\n"
-        + f"Your Encryption: Ciphertext: {ciphertext}\n"
-        + f"Tag: {tag}\nNonce: {cipher.nonce}\n"
-        + f"Please Save Them All Somewhere Safe"
-        + Style.RESET_ALL
-        + "\n"
-    )
+    try:
+        show("password", keypass)
+        show("Encryption tag", tag)
+        show("Encryption nonce", cipher.nonce)
+        with open(filename, "wb") as outfile:
+            outfile.write(ciphertext)
+        show("filename", filename)
+    except Exception as e:
+        print(e)
 # Uncomment the following line once you have a working decryptor.
-# MENU_OPTIONS.append(aes_enc_manual)
+#MENU_OPTIONS.append(aes_enc_manual)
 
 
 # def aes_dec_manual():
