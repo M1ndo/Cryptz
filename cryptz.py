@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
-# Created By r2dr0dn
-# Improvements by Haxys
-# Updated 2019.12.04
+"""
+Provides a number of encoders, decoders, encryptors and decryptors.
+
+Created By r2dr0dn.
+Improvements by Haxys.
+Updated 2019.12.04.
+"""
 
 import base64
 import binascii
@@ -12,20 +16,19 @@ import string
 try:
     from colorama import Fore, Style, init
     import pybase64
-    from Crypto.PublicKey import RSA
-    from Crypto import Random
-    from Crypto.Cipher import PKCS1_OAEP, AES
+    from Crypto.Cipher import AES
     from cryptography.fernet import Fernet
 except ImportError:
     print(
-        "[!] Missing Python libraries.\n"
-        " |_ Run: pip install -r requirements.txt"
+        "ERROR: Missing required libraries.\n"
+        "Install dependencies with: pip install -r requirements.txt"
     )
     exit(1)
 
 
 init()
-print(f"""{Fore.MAGENTA}
+print(
+    f"""{Fore.MAGENTA}
 https://github.com/r2dr0dn
 {Fore.CYAN}
  ####   #####   #   #  #####   #####  ######
@@ -36,16 +39,12 @@ https://github.com/r2dr0dn
  ####   #    #    #    #         #    ######  {Fore.RED}v3.0{Style.RESET_ALL}
 {Fore.CYAN}
 made by: {Fore.RED}r2dr0dn{Style.RESET_ALL}
-""")
+"""
+)
 
 # Global Variables
 strings = "1h3sgj5ks3erhg3h5dh23455wer32cfewjkfwerweh"
 MENU_OPTIONS = list()
-
-
-# base64 Functions:
-def reverse_char(s):
-    return s[::-1]
 
 
 def add_string(s):
@@ -60,7 +59,6 @@ def rem_string(text, char):
     return text.replace(char, "")
 
 
-# keypass generator
 def ran_generator():
     chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
     size = 4
@@ -73,11 +71,13 @@ def base64_hard_enc():
     data = input(Fore.RED + "Enter Your Plain Text Message: ")
     data = data + strings
     data = add_string(data)
-    data = reverse_char(data)
+    data = data[::-1]
     data = str.encode(data)
     encode1 = pybase64._pybase64.b64encode(data)
     encode1 = bytes.decode(encode1)
     print("\n" + Fore.RED + encode1 + Style.RESET_ALL + "\n")
+
+
 MENU_OPTIONS.append(base64_hard_enc)
 
 
@@ -88,9 +88,11 @@ def base64_hard_dec():
     dec = pybase64._pybase64.b64decode(data)
     dec = bytes.decode(dec)
     dec = rem_string(dec, strings)
-    dec = reverse_char(dec)
+    dec = dec[::-1]
     dec = rem_string(dec, strings)
     print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
+
+
 MENU_OPTIONS.append(base64_hard_dec)
 
 
@@ -101,6 +103,8 @@ def hex_enc():
     enc = binascii.hexlify(data)
     enc = enc.encode()
     print("\n" + Fore.RED + enc + Style.RESET_ALL + "\n")
+
+
 MENU_OPTIONS.append(hex_enc)
 
 
@@ -111,6 +115,8 @@ def hex_dec():
     dec = binascii.unhexlify(data)
     dec = dec.encode()
     print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
+
+
 MENU_OPTIONS.append(hex_dec)
 
 
@@ -123,8 +129,10 @@ def binhex4_enc():
     enc = binascii.b2a_hqx(data)
     enc = enc.decode()
     print("\n" + Fore.CYAN + enc + Style.RESET_ALL + "\n")
+
+
 # Uncomment the following line once you have a working decoder.
-#MENU_OPTIONS.append(binhex4_enc)
+# MENU_OPTIONS.append(binhex4_enc)
 
 
 # TODO: Fix this code.
@@ -136,7 +144,7 @@ def binhex4_enc():
 #     dec = binascii.a2b_hqx(data)
 #     dec = dec.decode()
 #     print("\n" + Fore.MAGENTA + Style.DIM + dec + Style.RESET_ALL + "\n")
-#MENU_OPTIONS.append(binhex4_dec)
+# MENU_OPTIONS.append(binhex4_dec)
 
 
 def fernet_enc():
@@ -150,6 +158,8 @@ def fernet_enc():
     key = key.decode()
     print(Fore.RED + "Your Decryption password: [%s]" % key)
     print("\n" + Fore.GREEN + "Encryption Value [%s]" % encry + "\n")
+
+
 MENU_OPTIONS.append(fernet_enc)
 
 
@@ -163,6 +173,8 @@ def fernet_dec():
     decr = D.decrypt(encr)
     decr = decr.decode()
     print("\n" + Fore.RED + "Decrypted Value: [%s]" % decr + "\n")
+
+
 MENU_OPTIONS.append(fernet_dec)
 
 
@@ -173,6 +185,8 @@ def uu_enc():
     enc = binascii.b2a_uu(data)
     enc = enc.encode()
     print("\n" + Fore.RED + enc + Style.RESET_ALL + "\n")
+
+
 MENU_OPTIONS.append(uu_enc)
 
 
@@ -182,6 +196,8 @@ def uu_dec():
     dec = binascii.a2b_uu(data)
     dec = dec.encode()
     print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
+
+
 MENU_OPTIONS.append(uu_dec)
 
 
@@ -192,6 +208,8 @@ def base64_enc():
     enc = pybase64._pybase64.b64encode(data)
     enc = enc.encode()
     print("\n" + Fore.YELLOW + enc + Style.RESET_ALL + "\n")
+
+
 MENU_OPTIONS.append(base64_enc)
 
 
@@ -202,7 +220,10 @@ def base64_dec():
     dec = pybase64._pybase64.b64decode(data)
     dec = dec.encode()
     print("\n" + Fore.RED + dec + Style.RESET_ALL + "\n")
+
+
 MENU_OPTIONS.append(base64_dec)
+
 
 def aes_enc_manual():
     """Encrypt with AES. (Manual)"""
@@ -217,14 +238,16 @@ def aes_enc_manual():
     print(
         Fore.BLUE
         + "\n"
-        + "Your Encryption: Ciphertext: {}\nTag: {}\nNonce: {}\nPlease Save Them All Somewhere Safe".format(
-            ciphertext, tag, cipher.nonce
-        )
+        + f"Your Encryption: Ciphertext: {ciphertext}\n"
+        + f"Tag: {tag}\nNonce: {cipher.nonce}\n"
+        + f"Please Save Them All Somewhere Safe"
         + Style.RESET_ALL
         + "\n"
     )
+
+
 # Uncomment the following line once you have a working decryptor.
-#MENU_OPTIONS.append(aes_enc_manual)
+# MENU_OPTIONS.append(aes_enc_manual)
 
 
 # def aes_dec_manual():
@@ -248,7 +271,7 @@ def aes_enc_manual():
 #     except ValueError:
 #         print("Unmatched Value!!!")
 #         exit(1)
-#MENU_OPTIONS.append(aes_dec_manual)
+# MENU_OPTIONS.append(aes_dec_manual)
 
 
 def rsa_enc_manual():
@@ -269,8 +292,10 @@ def rsa_enc_manual():
         Fore.WHITE + Style.DIM + "Encrypted Data: ",
         encoded + "\n" + Style.RESET_ALL,
     )
+
+
 # Uncomment the following line once you have a working decryptor.
-#MENU_OPTIONS.append(rsa_enc_manual)
+# MENU_OPTIONS.append(rsa_enc_manual)
 
 
 def aes_enc_auto():
@@ -308,6 +333,8 @@ def aes_enc_auto():
         + Fore.RED
         + "[%s.enc] \n" % (filename)
     )
+
+
 MENU_OPTIONS.append(aes_enc_auto)
 
 
@@ -326,6 +353,8 @@ def aes_dec_auto():
     data = cipher.decrypt_and_verify(ciphertext, tag)
     data = data.encode()
     print(Fore.MAGENTA + "\n" + "Decrypted: " + data + Style.RESET_ALL + "\n")
+
+
 MENU_OPTIONS.append(aes_dec_auto)
 
 
@@ -343,17 +372,17 @@ def main():
                     f"{index + 1}. {' ' if index < 9 else ''}"
                     f"{MENU_OPTIONS[index].__doc__}"
                 )
-            choice = input(
-                Fore.CYAN + "CRYPTZ -> " + Style.RESET_ALL
-            )
+            choice = input(Fore.CYAN + "CRYPTZ -> " + Style.RESET_ALL)
             try:
                 MENU_OPTIONS[int(choice)]()
             except IndexError:
                 print(Fore.RED + "Unknown option.")
     except KeyboardInterrupt:
-        print(f"\n{Fore.RED}Program terminated. "
-              f"{Fore.WHITE}{Style.BRIGHT}Have a nice day!"
-              f"{Style.RESET_ALL}")
+        print(
+            f"\n{Fore.RED}Program terminated. "
+            f"{Fore.WHITE}{Style.BRIGHT}Have a nice day!"
+            f"{Style.RESET_ALL}"
+        )
         exit(1)
 
 
