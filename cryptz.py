@@ -2,9 +2,9 @@
 """
 Provides a number of encoders, decoders, encryptors and decryptors.
 
-Created By r2dr0dn.
+Created By inc0gnit0 and r2dr0dn.
 Improvements by Haxys.
-Updated 2019.12.04.
+Updated 2019.12.05.
 """
 
 import base64
@@ -39,8 +39,13 @@ https://github.com/r2dr0dn
 #    #  #   #     #    #         #     #
  ####   #    #    #    #         #    ######  {Fore.RED}v5.0{Style.RESET_ALL}
 
-{Fore.CYAN}Created by: {Fore.RED}r2dr0dn
+{Fore.CYAN}Creators: {Fore.RED}inc0gnit0{Style.RESET_ALL} and {Fore.RED}r2dr0dn
 {Fore.YELLOW}Improved by: {Fore.RED}Haxys{Style.RESET_ALL}
+{Fore.BLUE}
+CRYPTZ Copyright (C) 2019 The CRYPTZ Developers
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you
+are welcome to redistribute it under certain conditions. See LICENSE for
+details.{Fore.RESET_ALL}
 """
 )
 
