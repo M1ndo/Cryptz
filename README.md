@@ -4,7 +4,7 @@
 # Cloning And Installing: 
 ```
 sudo -i && apt-get install git python3 python3-pip && git clone https://github.com/r2dr0dn/cryptz && cd cryptz
-pip3 install -r requirement.txt
+pip3 install -r requirements.txt
 ```
 # Usage: 
 ```
