@@ -2,7 +2,7 @@
 """
 Provides a number of encoders, decoders, encryptors and decryptors.
 
-Created By r2dr0dn.
+Created By ybenel.
 Improvements by Haxys.
 Theme By inc0gnit0
 Updated "2020:03:03"
@@ -28,7 +28,7 @@ except ImportError:
     )
     sys.exit(1)
 
-colorList = [Style.BRIGHT + Fore.RED, Style.BRIGHT + Fore.GREEN, Style.BRIGHT + Fore.YELLOW, Style.BRIGHT + Fore.BLUE, Fore.MAGENTA, Style.BRIGHT + Fore.CYAN, Style.BRIGHT + Fore.WHITE]
+colorList = [Style.BRIGHT + Fore.RED, Style.BRIGHT , Style.BRIGHT + Fore.YELLOW, Style.BRIGHT + Fore.BLUE, Fore.GREEN ,Fore.MAGENTA, Style.BRIGHT + Fore.CYAN, Style.BRIGHT + Fore.WHITE]
 
 
 init()
@@ -42,7 +42,7 @@ f"""
 #    #  #   #     #    #         #     #
  ####   #    #    #    #         #    ######  {choice(colorList)}v5.0
 
-{choice(colorList)}Created by: {choice(colorList)}r2dr0dn
+{Fore.GREEN}Created by: {choice(colorList)}ybenel
 {choice(colorList)}Improved by: {choice(colorList)}Haxys
 {choice(colorList)}Theme by: {choice(colorList)}inc0gnit0
 \n"""
@@ -248,7 +248,7 @@ def main():
             print()
             try:
                 MENU_OPTIONS[int(choice) - 1]()
-            except IndexError:
+            except (IndexError,UnboundLocalError):
                 print(choice(colorList) + "Unknown option." + Style.RESET_ALL)
             except ValueError:
                 print(
@@ -256,12 +256,9 @@ def main():
                     + "Enter the number of your selection."
                     + Style.RESET_ALL
                 )
-    except KeyboardInterrupt:
-        print(
-            f"\n{Fore.RED}Program terminated. "
-            f"{choice(colorList)}Have a nice day!"
-            f"{Style.RESET_ALL}"
-        )
+    except (KeyboardInterrupt,UnboundLocalError):
+        print("\n{}Program Terminated\n{}Have A Nice Day{}".format(Fore.RED,Style.BRIGHT,Style.RESET_ALL))
+
         sys.exit(1)
 
 

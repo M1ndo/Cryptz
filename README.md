@@ -3,14 +3,14 @@
 
 # Cloning And Installing: 
 ```
-sudo -i && apt-get install git python3 python3-pip && git clone https://github.com/r2dr0dn/cryptz && cd cryptz
+sudo -i && apt-get install git python3 python3-pip && git clone https://github.com/m1ndo/cryptz && cd cryptz
 pip3 install -r requirements.txt
 ```
 # Usage: 
 ```
 python3 cryptz.py
 ```
-## Created By [r2dr0dn](https://github.com/r2dr0dn) 
+## Created By [ybenel](https://github.com/m1ndo) 
 ## Updated By [Haxys](https://github.com/cmsteffen-code)
 
 
